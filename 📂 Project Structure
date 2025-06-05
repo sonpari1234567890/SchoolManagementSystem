@@ -1,0 +1,5 @@
+SchoolManagementSystem/
+│
+├── SchoolManagementSystem.java   // Main Application File
+├── README.md                     // Project Documentation
+└── screenshots/                  // (Optional) Folder for app images

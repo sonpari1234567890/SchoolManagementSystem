@@ -1,0 +1,172 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class SchoolManagementSystem extends JFrame implements ActionListener {
+    private JTextField nameField, ageField, gradeField;
+    private JButton addButton, viewButton, deleteButton, clearButton;
+    private JTextArea displayArea;
+    private ArrayList<Student> students;
+
+    // Constructor
+    public SchoolManagementSystem() {
+        setTitle("School Management System");
+        setSize(500, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        // Heading Label
+        JLabel titleLabel = new JLabel("School Management System", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setBounds(50, 10, 400, 30);
+        add(titleLabel);
+
+        // Name Field A
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setBounds(50, 50, 100, 25);
+        add(nameLabel);
+        nameField = new JTextField();
+        nameField.setBounds(150, 50, 200, 25);
+        add(nameField);
+
+        // Age Field
+        JLabel ageLabel = new JLabel("Age:");
+        ageLabel.setBounds(50, 90, 100, 25);
+        add(ageLabel);
+        ageField = new JTextField();
+        ageField.setBounds(150, 90, 200, 25);
+        add(ageField);
+
+        // Grade Field
+        JLabel gradeLabel = new JLabel("Grade:");
+        gradeLabel.setBounds(50, 130, 100, 25);
+        add(gradeLabel);
+        gradeField = new JTextField();
+        gradeField.setBounds(150, 130, 200, 25);
+        add(gradeField);
+
+        // Buttons
+        addButton = new JButton("Add Student");
+        addButton.setBounds(50, 170, 140, 30);
+        addButton.addActionListener(this);
+        add(addButton);
+
+        viewButton = new JButton("View Students");
+        viewButton.setBounds(200, 170, 140, 30);
+        viewButton.addActionListener(this);
+        add(viewButton);
+
+        deleteButton = new JButton("Delete Last");
+        deleteButton.setBounds(50, 210, 140, 30);
+        deleteButton.addActionListener(this);
+        add(deleteButton);
+
+        clearButton = new JButton("Clear Fields");
+        clearButton.setBounds(200, 210, 140, 30);
+        clearButton.addActionListener(this);
+        add(clearButton);
+
+        // Display Area
+        displayArea = new JTextArea();
+        displayArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+        scrollPane.setBounds(50, 250, 400, 100);
+        add(scrollPane);
+
+        // Initialize Student List
+        students = new ArrayList<>();
+
+        // Set Window Visible
+        setVisible(true);
+    }
+
+    // Handling Button Clicks
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == addButton) {
+            addStudent();
+        } else if (e.getSource() == viewButton) {
+            viewStudents();
+        } else if (e.getSource() == deleteButton) {
+            deleteLastStudent();
+        } else if (e.getSource() == clearButton) {
+            clearFields();
+        }
+    }
+
+    // Add Student to List
+    private void addStudent() {
+        String name = nameField.getText().trim();
+        String ageText = ageField.getText().trim();
+        String grade = gradeField.getText().trim();
+
+        if (name.isEmpty() || ageText.isEmpty() || grade.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            int age = Integer.parseInt(ageText);
+            students.add(new Student(name, age, grade));
+            JOptionPane.showMessageDialog(this, "Student Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            clearFields();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Age must be a number!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // View All Students
+    private void viewStudents() {
+        if (students.isEmpty()) {
+            displayArea.setText("No students available.");
+        } else {
+            StringBuilder sb = new StringBuilder("Student List:\n");
+            for (int i = 0; i < students.size(); i++) {
+                sb.append(i + 1).append(". ").append(students.get(i)).append("\n");
+            }
+            displayArea.setText(sb.toString());
+        }
+    }
+
+    // Delete Last Student
+    private void deleteLastStudent() {
+        if (!students.isEmpty()) {
+            students.remove(students.size() - 1);
+            JOptionPane.showMessageDialog(this, "Last Student Deleted!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            viewStudents();
+        } else {
+            JOptionPane.showMessageDialog(this, "No students to delete!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Clear Input Fields & Display Area
+    private void clearFields() {
+        nameField.setText("");
+        ageField.setText("");
+        gradeField.setText("");
+        displayArea.setText(""); // Clears the output area
+    }
+
+    // Student Class
+    private static class Student {
+        private String name;
+        private int age;
+        private String grade;
+
+        public Student(String name, int age, String grade) {
+            this.name = name;
+            this.age = age;
+            this.grade = grade;
+        }
+
+        public String toString() {
+            return name + " (Age: " 
++ age + ", Grade: " + grade + ")";
+        }
+    }
+
+    // Main Method
+    public static void main(String[] args) {
+        new SchoolManagementSystem();
+    }
+}

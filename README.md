@@ -12,8 +12,8 @@ This is a simple **School Management System** desktop application built using **
 
 ## 📸 GUI Preview
 
-> *(Add screenshot of your app here using the syntax below)*  
-> `![App Screenshot](screenshots/app.png)`
+> ![image](https://github.com/user-attachments/assets/f7aea921-312a-4911-916b-cf561c1c8e92)
+
 
 ## 💻 Tech Stack
 

@@ -5,25 +5,4 @@ SchoolManagementSystem/
 └── screenshots/                  // (Optional) Folder for app images
 
 
-✅ Learnings
-Event-driven programming with ActionListener
 
-GUI layout design with Swing components
-
-Managing data dynamically using ArrayList
-
-Input validation and exception handling
-
-🔧 Future Improvements
-Add Student Address field 🏠
-
-Enable search by name 🔍
-
-Export data to a file (CSV or JSON) 📄
-
-Improve UI/UX design 🎨
-
-
-
-📜 License
-This project is open-source and free to use under the MIT License.
